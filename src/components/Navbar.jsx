@@ -23,14 +23,20 @@ const Navbar = () => {
         }
 
         const data = await response.json();
+        localStorage.setItem("vendorPhoto", data.profile_photo);
         setProfilePhoto(data.profile_photo);
       } catch (error) {
         console.error("Error fetching vendor data:", error);
         alert("Failed to load vendor data.");
       }
     };
+    if (!localStorage.getItem("vendorPhoto")){
+      fetchVendorName();
+    }
+    else{
+      setProfilePhoto(localStorage.getItem("vendorPhoto"));
+    }
 
-    fetchVendorName();
   }, []);
 
   const handleLogout = () => {
